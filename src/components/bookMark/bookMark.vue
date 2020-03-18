@@ -1,24 +1,9 @@
 <template>
-    <div>
+    <div class="site">
       <ul>
-        <a href="#">
+        <a href="#" v-for="(item,index) in siteArray" :key="index">
           <li>
-            <img src="../../common/wallPaper/acg,gy_01.jpg" alt="收藏">
-          </li>
-        </a>
-        <a href="#">
-          <li>
-            <img src="../../common/wallPaper/acg,gy_02.jpg" alt="收藏">
-          </li>
-        </a>
-        <a href="#">
-          <li>
-            <img src="../../common/wallPaper/acg,gy_03.jpg" alt="收藏">
-          </li>
-        </a>
-        <a href="#">
-          <li>
-            <img src="../../common/wallPaper/acg,gy_04.jpg" alt="收藏">
+            <img src="" alt="收藏">{{item}}
           </li>
         </a>
       </ul>
@@ -27,26 +12,48 @@
 
 <script>
 export default {
-  name: 'bookMark'
+  name: 'bookMark',
+  computed: {
+    siteArray () {
+      // const site[]
+      return 15
+    }
+  }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  div
+
+  .site
     overflow hidden
     position absolute
+    width 1000px
+    left 10%
+    text-align center
 
   ul
     margin-top 80px
+    list-style: none;
+    font-size: 0;
   li
-    height 50px
-    width 50px
-    padding 0px
-    border-radius 25px
-    box-shadow black 5px
+    list-style: none;
+    width: 54px;
+    height: 54px;
+    padding-top: 17px;
+    box-sizing: border-box;
+    border-radius: 100px;
+    font-size: 16px;
+    margin: 0px auto 5px auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,.1);
+    background-color: white;
+    position: relative;
+    opacity: 0.6
+
+  li:hover
+    opacity 1
+  a
+    width: 104px;
+    height: 94px;
     overflow hidden
     display inline-block
-  a
-    height 30px
-    width 30px
 </style>

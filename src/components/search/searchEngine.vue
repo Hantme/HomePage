@@ -1,44 +1,35 @@
 <template>
   <div>
-    <!-- 组件不能写到template的根节点上，即每个组件只有一个根节点，这里的div就是这个template的根节点 -->
-    <!--  getindex是自定义事件 -->
-    <wallPaper>wall</wallPaper>
-    <switchLogo  @getindex='getIndex'></switchLogo>
     <div class="search-input">
       <!-- $event是实参，表示event对象 -->
       <span class="search-reset" @click="clearInput()" v-if="keyword">&times;</span>
       <span class="sw">LOGO</span>
       <input type="text" v-model="keyword" placeholder="快来问我呀~"
              @keyup="get($event)" @keydown.enter="search()">
-<!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
+      <!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
       <!-- 这是一个小叉叉，点击它可清除输入框内容 -->
 
       <mt-button class="search-btn" type="primary" size="large"
-                 v-if="0" @click="search()">搜一下</mt-button>
+                 v-if="0" @click="search()">搜一下
+      </mt-button>
       <div class="search-select">
         <!-- transition-group也是vue2.0中的新特性,tag='ul'表示用ul包裹v-for出来的li -->
         <transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
-          <li v-for="(value,index) in myData" :class="{selectback:index===now}" class="search-select-option search-select-list" @mouseover="selectHover(index)" @click="selectClick(index)" :key="value">
+          <li v-for="(value,index) in myData" :class="{selectback:index===now}"
+              class="search-select-option search-select-list" @mouseover="selectHover(index)"
+              @click="selectClick(index)" :key="value">
             {{value}}
           </li>
         </transition-group>
       </div>
     </div>
-    <bookMark></bookMark>
   </div>
 </template>
 
 <script>
-import bookMark from '../bookMark/bookMark'
-import wallPaper from '../wallPaper/wallPaper'
-import switchLogo from './switchLogo'
+
 export default {
-  // 注册组件
-  components: {
-    bookMark,
-    wallPaper,
-    switchLogo
-  },
+  name: 'searchEngine',
   data: function () {
     return {
       myData: [], // 用来接收ajax得到的数据
@@ -109,11 +100,12 @@ export default {
   .sw
     left -30px
     position absolute
+
   .search-input
     height: 45px;
     width: 600px;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 40%
     position: relative;
 
   .search-input
@@ -123,8 +115,7 @@ export default {
       width: 600px;
       border-radius 0px 20px 20px 0px
       height: 45px;
-      font-size: 18px;
-      float: left;
+      font-size: 18px
       padding-left: 10px;
       padding-right: 10px;
       overflow: hidden;
@@ -152,6 +143,7 @@ export default {
     width: 500px;
     box-sizing: border-box;
     z-index: 999;
+
     li
       border: 1px solid #d4d4d4;
       border-top: none;
@@ -200,6 +192,6 @@ export default {
 
   .search-select
     ul
-      margin:0
+      margin: 0
       text-align: left
 </style>

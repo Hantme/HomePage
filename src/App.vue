@@ -1,29 +1,28 @@
 <template>
   <div id="app">
-    <searchEngine id="search"></searchEngine>
+    <mainPage></mainPage>
   </div>
 
 </template>
 
 <script>
-import searchEngine from './components/search/searchEngine'
+import mainPage from './components/mainPage/mainPage'
 export default {
   name: 'Home',
   components: {
-    searchEngine
+    mainPage
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  #search
-    color: #2c3e50;
-    width: 600px;
-    font-family: Source Sans Pro, Helvetica, sans-serif;
-    text-align: center;
-    position absolute
-    top: 40%;
-    left: 50%;
-    margin-left: -300px;
-    margin-top: -100px;
+  #app
+    width: 100%;
+    height: 100%;
+    top 50%
+    min-width: 1000px;
+    min-height: 500px;
+    background-color: #f3f3f3;
+    position: relative;
+
 </style>

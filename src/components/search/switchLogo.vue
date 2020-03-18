@@ -60,28 +60,16 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  ul{list-style: none;padding: 0;margin: 0}
-  .main-logo {
-    width: 600px;
-    height: 140px;
-    position: relative;
-  }
-
-  .main-logo img {
-    display: block;
-    margin: 0 auto;
-    user-select: none;
-    cursor: pointer;
-  }
+  .main-logo
+    width 10px
+    height 10px
+    top 40px
+    left 23%
+    position: absolute
 
   .logoList-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
     border: 8px solid;
     border-color: #000 transparent transparent transparent;
-    right: 100px;
-    top: 66px;
     cursor: pointer
   }
 
