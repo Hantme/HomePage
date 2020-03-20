@@ -2,10 +2,9 @@
   <div class="main">
     <wallPaper></wallPaper>
     <switchLogo></switchLogo>
-    <searchEngine id="search"></searchEngine>
+    <searchEngine class="search"></searchEngine>
     <bookMark></bookMark>
   </div>
-
 </template>
 
 <script>
@@ -28,12 +27,11 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   main
     position relative
-  #search
+  .search
     color: #2c3e50;
     width: 600px;
     font-family: Source Sans Pro, Helvetica, sans-serif;
     text-align: center;
     position relative
-    top: 40%;
     left: 25%;
 </style>

@@ -113,7 +113,7 @@ export default {
       border: 1px solid #e4e4e4;
       box-sizing: border-box;
       width: 600px;
-      border-radius 0px 20px 20px 0px
+      border-radius 5px 20px 20px 5px
       height: 45px;
       font-size: 18px
       padding-left: 10px;

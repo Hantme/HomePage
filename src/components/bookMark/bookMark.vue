@@ -3,7 +3,7 @@
       <ul>
         <a href="#" v-for="(item,index) in siteArray" :key="index">
           <li>
-            <img src="" alt="收藏">{{item}}
+              <i class="el-icon-s-platform"></i>
           </li>
         </a>
       </ul>
@@ -23,14 +23,12 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-
   .site
     overflow hidden
     position absolute
     width 1000px
     left 10%
     text-align center
-
   ul
     margin-top 80px
     list-style: none;
@@ -48,7 +46,6 @@ export default {
     background-color: white;
     position: relative;
     opacity: 0.6
-
   li:hover
     opacity 1
   a
