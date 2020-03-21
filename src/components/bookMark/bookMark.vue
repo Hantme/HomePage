@@ -25,12 +25,13 @@ export default {
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .site
     overflow hidden
-    position absolute
+    position relative
     width 1000px
-    left 10%
+    top 50%
     text-align center
+    margin-left 8%
   ul
-    margin-top 80px
+    margin-top 100px
     list-style: none;
     font-size: 0;
   li

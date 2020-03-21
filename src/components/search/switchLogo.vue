@@ -1,6 +1,6 @@
 <template>
   <!-- 选择logo组件 -->
-  <div class="main-logo">
+  <div class="switch-logo">
 <!--    <img :src="logoData[selectedNow].imgSrc" alt="LOGO" @click="toggleFlag" >-->
     <span class="logoList-arrow" @click="toggleFlag"></span>
     <!-- tranition是vue的过渡效果 -->
@@ -60,11 +60,12 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .main-logo
+  .switch-logo
     width 10px
     height 10px
     top 40px
-    left 23%
+    transition-x 10px
+    display inline-block
     position: absolute
 
   .logoList-arrow {

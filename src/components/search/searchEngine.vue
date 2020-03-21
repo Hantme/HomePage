@@ -1,35 +1,38 @@
 <template>
-  <div>
-    <div class="search-input">
-      <!-- $event是实参，表示event对象 -->
-      <span class="search-reset" @click="clearInput()" v-if="keyword">&times;</span>
-      <span class="sw">LOGO</span>
-      <input type="text" v-model="keyword" placeholder="快来问我呀~"
-             @keyup="get($event)" @keydown.enter="search()">
-      <!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
-      <!-- 这是一个小叉叉，点击它可清除输入框内容 -->
+  <div class="search-input">
+    <!-- $event是实参，表示event对象 -->
+<!--    <span class="sw">LOGO</span>-->
+    <switchLogo></switchLogo>
+    <input type="text" v-model="keyword" placeholder="快来问我呀~"
+           @keyup="get($event)" @keydown.enter="search()">
+    <span class="search-reset" @click="clearInput()" v-show="keyword">&times;</span>
+    <!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
+    <!-- 这是一个小叉叉，点击它可清除输入框内容 -->
 
-      <mt-button class="search-btn" type="primary" size="large"
-                 v-if="0" @click="search()">搜一下
-      </mt-button>
-      <div class="search-select">
-        <!-- transition-group也是vue2.0中的新特性,tag='ul'表示用ul包裹v-for出来的li -->
-        <transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
-          <li v-for="(value,index) in myData" :class="{selectback:index===now}"
-              class="search-select-option search-select-list" @mouseover="selectHover(index)"
-              @click="selectClick(index)" :key="value">
-            {{value}}
-          </li>
-        </transition-group>
-      </div>
+    <mt-button class="search-btn" type="primary" size="large"
+               v-if="0" @click="search()">搜一下
+    </mt-button>
+    <div class="search-select" v-if="0">
+      <!-- transition-group也是vue2.0中的新特性,tag='ul'表示用ul包裹v-for出来的li -->
+      <transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
+        <li v-for="(value,index) in myData" :class="{selectback:index===now}"
+            class="search-select-option search-select-list" @mouseover="selectHover(index)"
+            @click="selectClick(index)" :key="value">
+          {{value}}
+        </li>
+      </transition-group>
     </div>
   </div>
 </template>
 
 <script>
 
+import switchLogo from './switchLogo'
 export default {
   name: 'searchEngine',
+  components: {
+    switchLogo
+  },
   data: function () {
     return {
       myData: [], // 用来接收ajax得到的数据
@@ -97,31 +100,27 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
-  .sw
-    left -30px
-    position absolute
-
   .search-input
-    height: 45px;
-    width: 600px;
-    margin: 0 auto;
-    margin-top: 40%
-    position: relative;
-
+    width: 1000px
+    margin-top  20%
+    margin-left  25%
+    position relative
   .search-input
     input
-      border: 1px solid #e4e4e4;
-      box-sizing: border-box;
+      border: 1px solid #e4e4e4
+      box-shadow 3px black
+      padding 3px
       width: 600px;
-      border-radius 5px 20px 20px 5px
-      height: 45px;
+      border-radius 8px
+      height: 54px;
       font-size: 18px
+      margin-left 16px
+      margin-right -32px
       padding-left: 10px;
       padding-right: 10px;
       overflow: hidden;
       opacity 0.5
       outline none
-
       &:hover
         opacity 1
 
@@ -138,7 +137,6 @@ export default {
     opacity 0.8
 
   .search-select
-    position: absolute;
     top: 45px;
     width: 500px;
     box-sizing: border-box;
@@ -165,16 +163,11 @@ export default {
   }
 
   .search-reset {
-    width: 21px;
-    height: 21px;
-    position: absolute;
-    display: block;
     line-height: 21px;
     text-align: center;
     cursor: pointer;
-    font-size: 20px;
-    right: 110px;
-    top: 12px
+    font-size: 20px
+    z-index 100
   }
 
   .search-select-list {
