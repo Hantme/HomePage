@@ -6,7 +6,6 @@
       <img :src="imgUrl" alt="背景图片">
 <!--    </div>-->
     <div class="icon">
-      <i class="el-icon-s-tools" @click="setSite"></i>
       <i class="el-icon-s-open"></i>
       <i class="el-icon-magic-stick" @click="changePic"></i>
     </div>
@@ -19,9 +18,9 @@ export default {
   data: function () {
     return {
       imgArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'],
-      imgArrIndex: 0,
+      imgArrIndex: 1,
       imgIndex: 10,
-      imgUrl: require('../../common/wallPaper/acg,gy_' + '01' + '.jpg')
+      imgUrl: require('../../common/wallPaper/acg,gy_' + '02' + '.jpg')
     //   backgroundDiv: {
     //
     //     backgroundImage: 'url(' + require('../../common/wallPaper/acg,gy_05.jpg') + ')',
@@ -48,19 +47,18 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .wall
-    display block
     width 100%
     height 100%
+    display flex
+    justify-content center
     position relative
   img
-    background-size contain
-    background-repeat: no-repeat
-    background-position: center
-    left 0
-    top 0
+    margin 0
+    object-fit: cover
     width 100%
     height 100%
     position fixed
+    vertical-align bottom
   .bgImg
     background-size contain
     background-repeat: no-repeat

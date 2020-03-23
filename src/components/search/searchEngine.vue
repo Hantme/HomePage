@@ -1,26 +1,33 @@
 <template>
-  <div class="search-input">
-    <!-- $event是实参，表示event对象 -->
-<!--    <span class="sw">LOGO</span>-->
-    <switchLogo></switchLogo>
-    <input type="text" v-model="keyword" placeholder="快来问我呀~"
-           @keyup="get($event)" @keydown.enter="search()">
-    <span class="search-reset" @click="clearInput()" v-show="keyword">&times;</span>
-    <!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
-    <!-- 这是一个小叉叉，点击它可清除输入框内容 -->
-
-    <mt-button class="search-btn" type="primary" size="large"
-               v-if="0" @click="search()">搜一下
-    </mt-button>
-    <div class="search-select" v-if="0">
-      <!-- transition-group也是vue2.0中的新特性,tag='ul'表示用ul包裹v-for出来的li -->
-      <transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
-        <li v-for="(value,index) in myData" :class="{selectback:index===now}"
-            class="search-select-option search-select-list" @mouseover="selectHover(index)"
-            @click="selectClick(index)" :key="value">
-          {{value}}
-        </li>
-      </transition-group>
+  <div class="inputFrame">
+    <div class="search-input">
+      <!-- $event是实参，表示event对象 -->
+      <!--    <span class="sw">LOGO</span>-->
+      <switchLogo></switchLogo>
+      <div class="inputBox">
+        <input type="text" v-model="keyword" placeholder="快来问我呀~"
+               @keyup="get($event)" @keydown.enter="search()">
+        <!-- 这是一个小叉叉，点击它可清除输入框内容 -->
+      </div>
+      <div class="clear" v-show="keyword">
+      <span class="search-reset" @click="clearInput()">
+        <i class="el-icon-close"></i>
+      </span>
+      </div>
+      <!--      @keydown.down="selectDown()" @keydown.up.prevent="selectUp()"-->
+      <mt-button class="search-btn" type="primary" size="large"
+                 v-if="0" @click="search()">搜一下
+      </mt-button>
+      <div class="search-select" v-if="0">
+        <!-- transition-group也是vue2.0中的新特性,tag='ul'表示用ul包裹v-for出来的li -->
+        <transition-group name="itemfade" tag="ul" mode="out-in" v-cloak>
+          <li v-for="(value,index) in myData" :class="{selectback:index===now}"
+              class="search-select-option search-select-list" @mouseover="selectHover(index)"
+              @click="selectClick(index)" :key="value">
+            {{value}}
+          </li>
+        </transition-group>
+      </div>
     </div>
   </div>
 </template>
@@ -100,29 +107,33 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .inputFrame
+    display flex
+    justify-content center
   .search-input
-    width: 1000px
-    margin-top  20%
-    margin-left  25%
+    transition-duration .5s
+    margin-top  18%
     position relative
-  .search-input
+    background: #fff;
+    display: flex;
+    border: 1px solid #dfe1e5;
+    box-shadow: 3px black
+    border-radius: 24px;
+    height: 44px;
+    width: 582px;
+    opacity 0.8
+    &:hover
+      opacity 1
+  .inputBox
+    display: flex;
+    flex: 100%;
     input
-      border: 1px solid #e4e4e4
-      box-shadow 3px black
-      padding 3px
-      width: 600px;
-      border-radius 8px
-      height: 54px;
+      height: 44px;
+      width 100%
       font-size: 18px
-      margin-left 16px
-      margin-right -32px
-      padding-left: 10px;
-      padding-right: 10px;
+      margin-right 20px
       overflow: hidden;
-      opacity 0.5
       outline none
-      &:hover
-        opacity 1
 
   .search-btn
     height 45px
@@ -162,13 +173,15 @@ export default {
     display: none
   }
 
-  .search-reset {
-    line-height: 21px;
-    text-align: center;
-    cursor: pointer;
-    font-size: 20px
-    z-index 100
-  }
+  .clear
+    display: flex
+    align-items center
+    width 30px
+    .search-reset
+      line-height: 21px
+      cursor: pointer
+      font-size: 20px
+      color grey
 
   .search-select-list {
     transition: all 0.5s

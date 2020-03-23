@@ -1,11 +1,15 @@
 <template>
   <!-- 选择logo组件 -->
-  <div class="switch-logo">
+  <div class="switch-logo" title="选择浏览器">
 <!--    <img :src="logoData[selectedNow].imgSrc" alt="LOGO" @click="toggleFlag" >-->
-    <span class="logoList-arrow" @click="toggleFlag"></span>
+    <span class="logoList-arrow" @click="toggleFlag">
+      <i class="el-icon-s-promotion"></i>
+      <i class="el-icon-minus"></i>
+    </span>
     <!-- tranition是vue的过渡效果 -->
     <transition name="logofade">
-      <ul v-if="logoListFlag&&mouseLeaveFlag" class="logoList" @mouseleave="mouseLeaveList">
+      <ul v-if="logoListFlag
+      " class="logoList" @mouseleave="mouseLeaveList">
         <li class="logoItem" v-for="(logo, index) in logoData" :key="index"
             @mouseover="logoListHover(index)" :class="{selectback:index===logoNow}"
             @click="logoSelected(index)">
@@ -61,27 +65,24 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
   .switch-logo
-    width 10px
-    height 10px
-    top 40px
-    transition-x 10px
-    display inline-block
-    position: absolute
-
-  .logoList-arrow {
-    border: 8px solid;
-    border-color: #000 transparent transparent transparent;
-    cursor: pointer
-  }
+    display: flex;
+    margin-left 10px
+    font-size 25px
+    justify-content center
+    align-items center
+    cursor pointer
+    flex-wrap nowrap
+    .logoList-arrow
+      display flex
+      .el-icon-minus
+        transform rotate(90deg)
+        font-size 20px
+        margin-left -5px
 
   .logoList {
-    position: absolute;
-    top: 100%;
-    width: 200px;
-    left: 50%;
-    margin-left: -100px;
-    z-index: 999999;
-    border: 1px solid #d4d4d4
+    width: 150px;
+    left: 50%
+    padding 0
   }
 
   .logoList li {
