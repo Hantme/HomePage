@@ -26,5 +26,9 @@ export default {
     background-color: #f3f3f3;
     position relative
     overflow hidden
-
+  body
+    font-family MicroSoft YaHei
+    color #333333
+    font-size 16px
+    line-height:1.75
 </style>
