@@ -3,11 +3,25 @@
 <!--  </div>-->
   <div class="wall">
 <!--    <div class="bgImg" :style="{backgroundImage:`url(${imgUrl})`}">-->
-      <img :src="imgUrl" alt="背景图片">
+      <img :src="imgUrl" alt="背景图片无法显示，请重新选择">
+
+    <transition name="el-zoom-in-center">
+      <div class="mask" v-if="box">
+        <el-form class="addSite" label-width="80px" :model="formLabelAlign">
+          <el-form-item label="图片URL：">
+            <el-input v-model="formLabelAlign.url"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click.native="setPic(), showBox()">立即创建</el-button>
+            <el-button @click="showBox">取消</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    </transition>
 <!--    </div>-->
     <div class="icon">
-      <i class="el-icon-s-open"></i>
-      <i class="el-icon-magic-stick" @click="changePic"></i>
+      <i class="el-icon-s-open" @click="showBox" name="自定义背景"></i>
+      <i class="el-icon-magic-stick" @click="changePic" name="随机一下！"></i>
     </div>
   </div>
 </template>
@@ -20,26 +34,30 @@ export default {
       imgArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'],
       imgArrIndex: 1,
       imgIndex: 10,
-      imgUrl: require('../../common/wallPaper/acg,gy_' + '02' + '.jpg')
-    //   backgroundDiv: {
-    //
-    //     backgroundImage: 'url(' + require('../../common/wallPaper/acg,gy_05.jpg') + ')',
-    //
-    //     backgroundRepeat: 'no-repeat',
-    //
-    //     backgroundSize: '100% 100%'
-    //
-    //   }
+      random: 54,
+      imgUrl: '',
+      box: false,
+      formLabelAlign: {
+        url: ''
+      }
     }
   },
+  mounted () {
+    this.changePic()
+  },
   methods: {
-    changePic () {
-      this.imgUrl = this.imgArrIndex < 9 ? require('../../common/wallPaper/acg,gy_' + this.imgArr[++this.imgArrIndex] + '.jpg')
-        : require('../../common/wallPaper/acg,gy_' + ++this.imgIndex + '.jpg')
-      console.log(this.imgArrIndex, this.imgIndex)
+    showBox () {
+      this.formLabelAlign = {}
+      this.box = !this.box
     },
-    setSite () {
-      console.log('setting!')
+    changePic () {
+      console.log(this.imgArrIndex)
+      this.imgArrIndex = Math.floor(Math.random() * 54 + 1)
+      this.imgUrl = this.imgArrIndex < 9 ? require('../../common/wallPaper/acg,gy_' + this.imgArr[this.imgArrIndex] + '.jpg')
+        : require('../../common/wallPaper/acg,gy_' + ++this.imgIndex + '.jpg')
+    },
+    setPic () {
+      this.imgUrl = this.formLabelAlign.url
     }
   }
 }
@@ -81,5 +99,28 @@ export default {
     margin-top 5px
     &:hover
       color white
+  .mask
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    display flex
+    align-items center
+    justify-content center
+    z-index 1
+    .addSite
+      z-index 2
+      position relative
+      text-align center
+      width 400px
+      height 150px
+      background-color: #fff
+      border-radius 20px
+      padding 30px
+  .fade-enter-active, .fade-leave-active
+    transition: opacity .5s
 
+  .fade-enter, .fade-leave-active
+    opacity: 0
 </style>

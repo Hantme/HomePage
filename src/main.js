@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import App from './App'
 import {Button} from 'mint-ui'
-import {Icon} from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import Element from 'element-ui'
 
-Vue.component(Icon.name, Icon)
+Vue.use(Element)
 Vue.component(Button.name, Button)
 // eslint-disable-next-line no-new
 new Vue({
