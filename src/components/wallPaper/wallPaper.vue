@@ -52,10 +52,10 @@ export default {
       this.box = !this.box
     },
     changePic () {
-      console.log(this.imgArrIndex)
       this.imgArrIndex = Math.floor(Math.random() * 54 + 1)
       this.imgUrl = this.imgArrIndex < 10 ? require('../../common/wallPaper/acg,gy_' + this.imgArr[this.imgArrIndex] + '.jpg')
         : require('../../common/wallPaper/acg,gy_' + this.imgArrIndex + '.jpg')
+      console.log(this.imgArrIndex)
     },
     setPic () {
       this.imgUrl = this.formLabelAlign.url

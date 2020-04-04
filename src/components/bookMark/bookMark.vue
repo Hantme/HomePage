@@ -6,14 +6,16 @@
           <div class="edit" v-if="edit"> <!--class on-->
             <div class="remove" @click.prevent="remove(site)" title="删除网址">
 
-                <i class="iconfont icon-shanchu1" name></i>
+              <i class="iconfont icon-shanchu1" name></i>
 
             </div>
-            <div class="add" @click.prevent="changeSite(site)" title="编辑网址">
+            <div class="add" @click.prevent="showBox(site)" title="编辑网址">
               <i class="iconfont icon-bianjiqianbixieshuru2"></i>
             </div>
           </div>
-          <img :src="iconBaseUrl+site.url" alt="ICO">
+          <img :src="site.url+'/favicon.ico'" alt="">
+          <img :src="iconBaseUrl+site.url" alt="">
+          <span class="siteName">{{site.name}}</span>
           <!--              <i class="el-icon-s-platform" style="top: 50%"></i>-->
         </li>
       </a>
@@ -26,15 +28,15 @@
     </ul>
     <transition name="el-zoom-in-center">
       <div class="mask" v-if="box">
-        <el-form class="addSite" label-width="80px" :model="formLabelAlign">
+        <el-form class="addSite" label-width="80px" >
           <el-form-item label="网址：">
-            <el-input v-model="formLabelAlign.url"></el-input>
+            <el-input v-model.lazy="siteArray[currentIndex].url"></el-input>
           </el-form-item>
           <el-form-item label="名称：">
-            <el-input v-model="formLabelAlign.name"></el-input>
+            <el-input v-model.lazy="siteArray[currentIndex].name"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click.native="add(), showBox()">确定</el-button>
+            <el-button type="primary" @click.native="add(), showBox(0)">确定</el-button>
             <el-button @click="showBox">取消</el-button>
           </el-form-item>
         </el-form>
@@ -50,7 +52,9 @@ export default {
   data () {
     return {
       edit: false,
+      reEdit: false,
       box: false,
+      currentIndex: 0,
       iconBaseUrl: 'http://www.google.com/s2/favicons?domain=',
       siteArray: [{
         url: 'http://www.google.com',
@@ -63,20 +67,28 @@ export default {
       {
         url: 'http://www.pixiv.net',
         name: 'PIXIV'
-      }],
-      formLabelAlign: {
-        name: '',
-        url: ''
-      }
+      }]
+    }
+  },
+  mounted () {
+    if (localStorage.getItem('BookMarks')) {
+      this.siteArray = JSON.parse(localStorage.getItem('BookMarks'))
     }
   },
   methods: {
     changeEdit () {
       this.edit = !this.edit
     },
-    showBox () {
-      this.formLabelAlign = {}
-      this.box = !this.box
+    showBox (e) {
+      if (e.__ob__) {
+        this.reEdit = true
+        this.currentIndex = this.siteArray.findIndex(item => item.name === e.name)
+        this.box = !this.box
+      } else {
+        this.reEdit = false
+        this.formLabelAlign = {}
+        this.box = !this.box
+      }
     },
     remove (e) {
       this.$confirm('确定删除网址?', '提示', {
@@ -84,7 +96,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        console.log('rd: closeVideo -> item', e)
         this.siteArray.splice(this.siteArray.findIndex(item => item.name === e.name), 1)
         this.$message({
           type: 'success',
@@ -93,24 +104,36 @@ export default {
       }).catch(() => {
       })
     },
-    changeSite (e) {
-      console.log('rd: ThisVideo -> item', e, this.siteArray.findIndex(item => item.name === e.name))
-      let index = this.siteArray.findIndex(item => item.name === e.name)
-      this.showBox()
-      this.formLabelAlign.name = this.siteArray[index].name
-      this.formLabelAlign.url = this.siteArray[index].url
-    },
     add () {
-      this.siteArray.push({
-        url: this.formLabelAlign.url,
-        name: this.formLabelAlign.name
-      })
+      if (!this.reEdit) {
+        this.siteArray.push({
+          url: '',
+          name: ''
+        })
+        this.currentIndex = 0
+      }
+    }
+  },
+  watch: {
+    siteArray: {
+      handler (newValue, oldValue) {
+        localStorage.setItem('BookMarks', JSON.stringify(this.siteArray))
+      }
     }
   }
 }
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  .siteName
+    font-size 12px
+    color #eeeeee
+    width 60px
+    position absolute
+    white-space nowrap
+    text-shadow 1px 1px 3px black
+    transform translateX(-30px)
+    bottom -15px
   .site
     display flex
     text-align center
@@ -126,6 +149,7 @@ export default {
     align-items center
     justify-content center
     z-index 1
+
     .addSite
       z-index 2
       position relative
@@ -135,11 +159,13 @@ export default {
       background-color: #fff
       border-radius 20px
       padding 30px
+
   .fade-enter-active, .fade-leave-active
     transition: opacity .5s
 
   .fade-enter, .fade-leave-active
     opacity: 0
+
   ul
     margin auto
     width 1000px
@@ -148,6 +174,7 @@ export default {
     justify-content center
     margin-top 100px
     font-size: 0
+
     a
       width: 104px;
       height: 84px;
@@ -175,8 +202,10 @@ export default {
       justify-content space-between
       opacity 0.9
       font-size: 15px
+
   .newSite
     padding-top 18%
+
   .remove
     color #ef605a
 
@@ -203,6 +232,7 @@ export default {
     color grey
     font-size 25px
     cursor pointer
+
     &:hover
       transform scale(1.2)
 </style>
