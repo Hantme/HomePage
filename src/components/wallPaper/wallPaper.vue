@@ -7,7 +7,7 @@
 
     <transition name="el-zoom-in-center">
       <div class="mask" v-if="box">
-        <el-form class="addSite" label-width="80px" :model="formLabelAlign">
+        <el-form class="diyImg" label-width="80px" :model="formLabelAlign">
           <el-form-item label="图片URL：">
             <el-input v-model="formLabelAlign.url"></el-input>
           </el-form-item>
@@ -20,9 +20,10 @@
     </transition>
 <!--    </div>-->
     <div class="icon">
-      <i class="el-icon-s-open" @click="showBox" name="自定义背景"></i>
-      <i class="el-icon-magic-stick" @click="changePic" name="随机一下！"></i>
+      <i class="el-icon-s-open" @click="showBox" title="自定义背景"></i>
+      <i class="el-icon-magic-stick" @click="changePic" title="随机一下！"></i>
     </div>
+    <div class="board"></div>
   </div>
 </template>
 
@@ -53,8 +54,8 @@ export default {
     changePic () {
       console.log(this.imgArrIndex)
       this.imgArrIndex = Math.floor(Math.random() * 54 + 1)
-      this.imgUrl = this.imgArrIndex < 9 ? require('../../common/wallPaper/acg,gy_' + this.imgArr[this.imgArrIndex] + '.jpg')
-        : require('../../common/wallPaper/acg,gy_' + ++this.imgIndex + '.jpg')
+      this.imgUrl = this.imgArrIndex < 10 ? require('../../common/wallPaper/acg,gy_' + this.imgArr[this.imgArrIndex] + '.jpg')
+        : require('../../common/wallPaper/acg,gy_' + this.imgArrIndex + '.jpg')
     },
     setPic () {
       this.imgUrl = this.formLabelAlign.url
@@ -94,11 +95,22 @@ export default {
     color grey
     font-size 25px
     cursor pointer
+    z-index 500
+  .board
+    position fixed
+    bottom 40px
+    right 11px
+    width 25px
+    height 70px
+    border-radius 20px
+    background-color: #fff
+    padding 35px 5px 5px 5px
+    opacity 0.7
   i
     display block
     margin-top 5px
     &:hover
-      color white
+      transform scale(1.2)
   .mask
     position: fixed
     top: 0
@@ -109,7 +121,7 @@ export default {
     align-items center
     justify-content center
     z-index 1
-    .addSite
+    .diyImg
       z-index 2
       position relative
       text-align center
