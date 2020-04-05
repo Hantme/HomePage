@@ -1,6 +1,6 @@
 <template>
   <div class="site">
-    <ul>
+    <ul v-show="!box">
       <a :href="site.url" target="_blank" v-for="(site,index) in siteArray" :key="index">
         <li>
           <div class="edit" v-if="edit"> <!--class on-->
@@ -9,24 +9,24 @@
               <i class="iconfont icon-shanchu1" name></i>
 
             </div>
-            <div class="add" @click.prevent="showBox(site)" title="编辑网址">
+            <div class="add" @click.prevent="showBox1(site)" title="编辑网址">
               <i class="iconfont icon-bianjiqianbixieshuru2"></i>
             </div>
           </div>
           <img :src="site.url+'/favicon.ico'" alt="">
-          <img :src="iconBaseUrl+site.url" alt="">
+<!--          <img :src="iconBaseUrl+site.url" alt="">-->
           <span class="siteName">{{site.name}}</span>
           <!--              <i class="el-icon-s-platform" style="top: 50%"></i>-->
         </li>
       </a>
-      <a href="#" v-if="edit" @click="showBox">
+      <a href="#" v-if="edit" @click="showBox2(), add()">
         <li class="newSite">
           <i class="el-icon-plus"></i>
           <!--              <i class="el-icon-s-platform" style="top: 50%"></i>-->
         </li>
       </a>
     </ul>
-    <transition name="el-zoom-in-center">
+    <transition name="fade">
       <div class="mask" v-if="box">
         <el-form class="addSite" label-width="80px" >
           <el-form-item label="网址：">
@@ -36,8 +36,8 @@
             <el-input v-model.lazy="siteArray[currentIndex].name"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click.native="add(), showBox(0)">确定</el-button>
-            <el-button @click="showBox">取消</el-button>
+            <el-button type="primary" @click="showBox2">确定</el-button>
+            <el-button @click.native="showBox2(), remove2()">取消</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -57,16 +57,16 @@ export default {
       currentIndex: 0,
       iconBaseUrl: 'http://www.google.com/s2/favicons?domain=',
       siteArray: [{
-        url: 'http://www.google.com',
-        name: '谷歌'
+        url: 'http://www.baidu.com',
+        name: '百度'
       },
       {
         url: 'http://www.bilibili.com',
         name: '哔哩哔哩'
       },
       {
-        url: 'http://www.pixiv.net',
-        name: 'PIXIV'
+        url: 'http://www.4399.net',
+        name: '4399'
       }]
     }
   },
@@ -79,18 +79,15 @@ export default {
     changeEdit () {
       this.edit = !this.edit
     },
-    showBox (e) {
-      if (e.__ob__) {
-        this.reEdit = true
-        this.currentIndex = this.siteArray.findIndex(item => item.name === e.name)
-        this.box = !this.box
-      } else {
-        this.reEdit = false
-        this.formLabelAlign = {}
-        this.box = !this.box
-      }
+    showBox1 (e) { // 编辑弹出框
+      this.reEdit = true
+      this.currentIndex = this.siteArray.findIndex(item => item.name === e.name)
+      this.box = !this.box
     },
-    remove (e) {
+    showBox2 () { // 新增弹出框
+      this.box = !this.box
+    },
+    remove (e) { // 删除站点
       this.$confirm('确定删除网址?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -104,14 +101,18 @@ export default {
       }).catch(() => {
       })
     },
-    add () {
+    remove2 () { // 取消按钮时删除新增节点
       if (!this.reEdit) {
-        this.siteArray.push({
-          url: '',
-          name: ''
-        })
-        this.currentIndex = 0
+        this.siteArray.splice(this.siteArray.length - 1, 1)
       }
+    },
+    add () {
+      this.reEdit = false
+      this.siteArray.push({
+        url: '',
+        name: ''
+      })
+      this.currentIndex = this.siteArray.length - 1
     }
   },
   watch: {
@@ -161,7 +162,7 @@ export default {
       padding 30px
 
   .fade-enter-active, .fade-leave-active
-    transition: opacity .5s
+    transition: opacity .4s
 
   .fade-enter, .fade-leave-active
     opacity: 0
