@@ -104,11 +104,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@popperjs/core@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/@popperjs/core/download/@popperjs/core-2.1.1.tgz#12c572ab88ef7345b43f21883fca26631c223085"
-  integrity sha1-EsVyq4jvc0W0PyGIP8omYxwiMIU=
-
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.7.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40sindresorhus%2Fis%2Fdownload%2F%40sindresorhus%2Fis-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -390,6 +385,11 @@ autoprefixer@^7.1.2:
     num2fraction "^1.2.2"
     postcss "^6.0.17"
     postcss-value-parser "^3.2.3"
+
+awe-dnd@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/awe-dnd/-/awe-dnd-0.3.4.tgz#5913d12e0bd32f3e7e4f6361a870e8ea623496eb"
+  integrity sha512-ZvwlnaUn1RFwYXQUxLZKtyKH2R+z+8an1B0cTVfDA6UP7i2JxDnxXNwecR56qhwQha39XDQDpgmqz9kQghhksQ==
 
 babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
@@ -2255,9 +2255,9 @@ decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   integrity sha1-9lNNFRSCabIDUue+4m9QH5oZEpA=
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha1-6zkTMzRYd1y4TNGh+uBiEGu4dUU=
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 decompress-response@^3.3.0:
   version "3.3.0"
@@ -7201,13 +7201,6 @@ timsort@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/timsort/-/timsort-0.3.0.tgz#405411a8e7e6339fe64db9a234de11dc31e02bd4"
   integrity sha1-QFQRqOfmM5/mTbmiNN4R3DHgK9Q=
-
-tippy.js@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.npm.taobao.org/tippy.js/download/tippy.js-6.1.0.tgz#9c58b94f92f3044d5e861b9d83da3c2a6d3d4323"
-  integrity sha1-nFi5T5LzBE1ehhudg9o8Km09QyM=
-  dependencies:
-    "@popperjs/core" "^2.1.1"
 
 tmp@^0.0.33:
   version "0.0.33"
